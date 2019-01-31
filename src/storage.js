@@ -1,0 +1,2 @@
+storage = {};
+module.exports = storage;

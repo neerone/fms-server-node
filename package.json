@@ -1,0 +1,36 @@
+{
+  "name": "simma-server-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "crypto-js": "^3.1.9-1",
+    "datauri": "^1.0.5",
+    "knex": "^0.13.0",
+    "lodash": "^4.17.4",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.18.1",
+    "needle": "^1.6.0",
+    "node-mysql": "^0.4.2",
+    "request": "^2.81.0",
+    "sqlite3": "^3.1.8",
+    "squel": "^5.10.0",
+    "ws": "^3.0.0"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "mocha": "^3.4.2",
+    "node-mysql-importer": "0.0.10"
+  },
+  "scripts": {
+    "test": "mocha --timeout 500000",
+    "runAndTestC": "concurrently -s first -k -p \"[{name}]\" -n \"SERV,TEST\" -c \"bgRed.bold,bgMagenta.bold\" \"node ./src/index.js\" \"mocha --timeout 600000\"",
+    "runAndTest": "npm run start & npm run test",
+    "reset": "node ./tools/resetdbcommand",
+    "start": "node ./src/index.js",
+    "debug": "node-debug --web-port 1342 ./src/index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
