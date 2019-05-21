@@ -13,6 +13,7 @@
     "moment": "^2.18.1",
     "needle": "^1.6.0",
     "node-mysql": "^0.4.2",
+    "parse-data-url": "^1.0.0",
     "request": "^2.81.0",
     "sqlite3": "^3.1.8",
     "squel": "^5.10.0",

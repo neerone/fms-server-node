@@ -2,7 +2,7 @@ var mysql      = require('mysql');
 
 
 
-const {mysqlconnection} = require('../../../configs/server-js-config/config');
+const {mysqlconnection} = require('../../config');
 
 var conn = mysql.createConnection(mysqlconnection);
 
