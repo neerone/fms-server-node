@@ -19,11 +19,14 @@ getMetaData((meta) => {
 	console.log("Listening on port 4000");
 
 
-	
+
 
 	wss.on('connection', function connection(ws) {
 		ws.on('message', function incoming(request) {
 			commandProcessor(request, ws, wss);
+		});
+		ws.on('error', (error) => {
+			console.error(error)
 		});
 		let newToken = CryptoJS.MD5(_.uniqueId('token_')).toString();
 		let handshake = {command: CONST.CMDS.HANDSHAKE, token:newToken};

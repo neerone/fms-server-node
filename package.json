@@ -15,8 +15,6 @@
     "node-mysql": "^0.4.2",
     "parse-data-url": "^1.0.0",
     "request": "^2.81.0",
-    "sqlite3": "^3.1.8",
-    "squel": "^5.10.0",
     "ws": "^3.0.0"
   },
   "devDependencies": {

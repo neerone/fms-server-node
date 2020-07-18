@@ -144,21 +144,19 @@ function writeNewRowToDB(modelId, rawelement,ws) {
 		var values = _.map(keys, key => {
 			return element[key+""];
 		})
-
 		
 		function createInsertionQuery(query, resolve, reject) {
 			createDatabaseQuery(query).then(res => {
-				
 				if (res.insertId && res.affectedRows == 1) {
 					let query = knex(`t_${modelId}`).where('id', res.insertId).toString();
-
 					createDatabaseQuery(query).then(res=>{
 						if (res[0]) {
 							let newElement = res[0];
 							let newElementId = g.getId(newElement)
-							journalize(modelId, newElementId,1, ws).then(() => {
+							return resolve({type: "ROW_INSERTED",changedModelId:modelId,	element: normalizeDates(oldLinksBringBackToNewElement(oldElement, newElement)), oldId: oldElementId});
+/*							journalize(modelId, newElementId,1, ws).then(() => {
 								return resolve({type: "ROW_INSERTED",changedModelId:modelId,	element: normalizeDates(oldLinksBringBackToNewElement(oldElement, newElement)), oldId: oldElementId});
-							}, err => {reject(err)})
+							}, err => {reject(err)})*/
 						}
 
 					}, err => {reject(err)})
@@ -167,12 +165,8 @@ function writeNewRowToDB(modelId, rawelement,ws) {
 			}, err => {reject(err)})
 		}
 
-		if (rawelement.id == 429) {
-			console.log("WE FOUNT THIS2!",rawelement);
-		}
 
 		validateElementBeforeWrite(modelId, rawelement.id, element).then(errors => {
-
 			if (errors.length>0) {
 				return reject(errors);
 			} else {

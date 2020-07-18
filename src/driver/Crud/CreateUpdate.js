@@ -107,7 +107,6 @@ function createNewModels(drafts, changedData,ws) {
 	return new Promise((resolve, reject) => {
 		if (drafts[MI.META_MODELS]) {
 			let newModels = _.map(_.filter(drafts[MI.META_MODELS], (v,k) => k.includes("new")), (m) => m)
-
 			let promises = _.map(newModels, (newModel) => writeNewRowToDB(MI.META_MODELS, newModel,ws));
 			Promise.all(promises).then((updatedArray) => {
 				let createTablePromises = [];
@@ -125,6 +124,8 @@ function createNewModels(drafts, changedData,ws) {
 					return reject(errors)
 				});
 
+			}).catch((error) => {
+				console.error(error)
 			})
 
 		} else {
@@ -332,8 +333,6 @@ function processRequest({modelId, elementId, drafts},ws) {
 	return new Promise((resolve, reject) => {
 
 		let allowedModelsToChange = getDeepRelatedModels(modelId);
-
-
 		//Сначала проверяем наличие новых моделей
 		createNewModels(drafts, {},ws).then(res => {
 			//Добавляем в них колонки, если есть
